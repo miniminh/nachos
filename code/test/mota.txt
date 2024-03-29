@@ -1,0 +1,10 @@
+Project 2 - Nachos
+
+1. 22127177 - Mai Tran Nguyen Khang
+2. 22127274 - Phan Nguyen Tuan Minh
+3. 22127323 - Le Tan Phat
+4. 20127101 - Bui Ngoc My An
+5. 20127576 - Nguyen Truc Nguyen
+
+Giao vien huong dan:
+Le Viet Long

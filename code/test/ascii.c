@@ -18,9 +18,6 @@ int main() {
         PrintString(fileName);
         PrintString(" created successfully!\n");
     }
-
-
-    
     
     id = Open(fileName, 0);
     count = 0;
@@ -49,5 +46,6 @@ int main() {
     Write(buffer, count, id);
     Close(id);
 }
+
 
 

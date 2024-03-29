@@ -125,7 +125,7 @@ halt.o: halt.c
 halt: halt.o start.o
 	$(LD) $(LDFLAGS) start.o halt.o -o halt.coff
 	$(COFF2NOFF) halt.coff halt
-	
+
 ascii.o: ascii.c
 	$(CC) $(CFLAGS) -c ascii.c
 ascii: ascii.o start.o
@@ -143,7 +143,7 @@ quicksort.o: quicksort.c
 quicksort: quicksort.o start.o
 	$(LD) $(LDFLAGS) start.o quicksort.o -o quicksort.coff
 	$(COFF2NOFF) quicksort.coff quicksort
-	
+
 mergesort.o: mergesort.c
 	$(CC) $(CFLAGS) -c mergesort.c
 mergesort: mergesort.o start.o
