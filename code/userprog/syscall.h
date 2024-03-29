@@ -29,27 +29,16 @@
 #define SC_Write 8
 #define SC_Seek 9
 #define SC_Close 10
-#define SC_ThreadFork 11
-#define SC_ThreadYield 12
-#define SC_ExecV 13
-#define SC_ThreadExit 14
-#define SC_ThreadJoin 15
 
-#define SC_Add 42
-#define SC_ReadInt 43
-#define SC_PrintInt 44
-#define SC_ReadChar 45
-#define SC_PrintChar 46
-#define SC_RandomNum 47
-#define SC_ReadString 48
-#define SC_PrintString 49
-#define SC_CreateFile 50
-#define SC_CreateSemaphore 51
-#define SC_Wait 52
-#define SC_Signal 53
-#define SC_GetPid 54
-#define SC_ReadFloat 55
-#define SC_PrintFloat 56
+#define SC_ReadInt 42
+#define SC_PrintInt 43
+#define SC_ReadChar 44
+#define SC_PrintChar 45
+#define SC_ReadString 46
+#define SC_PrintString 47
+#define SC_CreateFile 48
+#define SC_ReadFloat 49
+#define SC_PrintFloat 50
 
 #ifndef IN_ASM
 
@@ -70,8 +59,6 @@ void Halt();
  * Add the two operants and return the result
  */
 
-int Add(int op1, int op2);
-
 int ReadInt();
 
 void PrintInt(int num);
@@ -79,8 +66,6 @@ void PrintInt(int num);
 char ReadChar();
 
 void PrintChar(char character);
-
-int RandomNum();
 
 void ReadString(char *buffer, int length);
 
@@ -94,19 +79,11 @@ void Exit(int status);
 /* A unique identifier for an executing user program (address space) */
 typedef int SpaceId;
 
-/* A unique identifier for a thread within a task */
-typedef int ThreadId;
-
 /* Run the specified executable, with no args */
 /* This can be implemented as a call to ExecV.
  */
 SpaceId Exec(char *exec_name);
 
-/* Run the executable, stored in the Nachos file "argv[0]", with
- * parameters stored in argv[1..argc-1] and return the
- * address space identifier
- */
-SpaceId ExecV(int argc, char *argv[]);
 
 /* Only return once the user program "id" has finished.
  * Return the exit status.
@@ -184,40 +161,10 @@ float* ReadFloat();
 
 void PrintFloat(float* number);
 
-int Wait(char *name);
-
-int Signal(char *name);
-
-/* User-level thread operations: Fork and Yield.  To allow multiple
- * threads to run within a user program.
- *
- * Could define other operations, such as LockAcquire, LockRelease, etc.
- */
-
-/* Fork a thread to run a procedure ("func") in the *same* address space
- * as the current thread.
- * Return a positive ThreadId on success, negative error code on failure
- */
-ThreadId ThreadFork(void (*func)());
-
-/* Yield the CPU to another runnable thread, whether in this address space
- * or not.
- */
-void ThreadYield();
-
-/*
- * Blocks current thread until lokal thread ThreadID exits with ThreadExit.
- * Function returns the ExitCode of ThreadExit() of the exiting thread.
- */
-int ThreadJoin(ThreadId id);
-
-/*
- * Deletes current thread and returns ExitCode to every waiting lokal thread.
- */
-void ThreadExit(int ExitCode);
-
 #endif /* IN_ASM */
 
 #endif /* SYSCALL_H */
+
+
 
 

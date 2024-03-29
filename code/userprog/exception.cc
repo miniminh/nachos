@@ -137,23 +137,6 @@ void handle_SC_Halt() {
     ASSERTNOTREACHED();
 }
 
-void handle_SC_Add() {
-    DEBUG(dbgSys, "Add " << kernel->machine->ReadRegister(4) << " + "
-                         << kernel->machine->ReadRegister(5) << "\n");
-
-    /* Process SysAdd Systemcall*/
-    int result;
-    result = SysAdd(
-        /* int op1 */ (int)kernel->machine->ReadRegister(4),
-        /* int op2 */ (int)kernel->machine->ReadRegister(5));
-
-    DEBUG(dbgSys, "Add returning with " << result << "\n");
-    /* Prepare Result */
-    kernel->machine->WriteRegister(2, (int)result);
-
-    return move_program_counter();
-}
-
 void handle_SC_ReadInt() {
     int result = SysReadInt();
     kernel->machine->WriteRegister(2, result);
@@ -175,13 +158,6 @@ void handle_SC_ReadChar() {
 void handle_SC_PrintChar() {
     char character = (char)kernel->machine->ReadRegister(4);
     SysPrintChar(character);
-    return move_program_counter();
-}
-
-void handle_SC_RandomNum() {
-    int result;
-    result = SysRandomNum();
-    kernel->machine->WriteRegister(2, result);
     return move_program_counter();
 }
 
@@ -349,65 +325,6 @@ void handle_SC_Exit() {
     return move_program_counter();
 }
 
-void handle_SC_CreateSemaphore() {
-    int virtAddr = kernel->machine->ReadRegister(4);
-    int semval = kernel->machine->ReadRegister(5);
-
-    char* name = stringUser2System(virtAddr);
-    if (name == NULL) {
-        DEBUG(dbgSys, "\n Not enough memory in System");
-        ASSERT(false);
-        kernel->machine->WriteRegister(2, -1);
-        delete[] name;
-        return move_program_counter();
-    }
-
-    kernel->machine->WriteRegister(2, SysCreateSemaphore(name, semval));
-    delete[] name;
-    return move_program_counter();
-}
-
-void handle_SC_Wait() {
-    int virtAddr = kernel->machine->ReadRegister(4);
-
-    char* name = stringUser2System(virtAddr);
-    if (name == NULL) {
-        DEBUG(dbgSys, "\n Not enough memory in System");
-        ASSERT(false);
-        kernel->machine->WriteRegister(2, -1);
-        delete[] name;
-        return move_program_counter();
-    }
-
-    kernel->machine->WriteRegister(2, SysWait(name));
-    delete[] name;
-    return move_program_counter();
-}
-
-void handle_SC_Signal() {
-    int virtAddr = kernel->machine->ReadRegister(4);
-
-    char* name = stringUser2System(virtAddr);
-    if (name == NULL) {
-        DEBUG(dbgSys, "\n Not enough memory in System");
-        ASSERT(false);
-        kernel->machine->WriteRegister(2, -1);
-        delete[] name;
-        return move_program_counter();
-    }
-
-    kernel->machine->WriteRegister(2, SysSignal(name));
-    delete[] name;
-    return move_program_counter();
-}
-
-void handle_SC_GetPid() {
-    kernel->machine->WriteRegister(2, SysGetPid());
-    return move_program_counter();
-}
-
-
-
 void ExceptionHandler(ExceptionType which) {
     int type = kernel->machine->ReadRegister(2);
 
@@ -433,8 +350,6 @@ void ExceptionHandler(ExceptionType which) {
             switch (type) {
                 case SC_Halt:
                     return handle_SC_Halt();
-                case SC_Add:
-                    return handle_SC_Add();
                 case SC_ReadInt:
                     return handle_SC_ReadInt();
                 case SC_PrintInt:
@@ -443,8 +358,6 @@ void ExceptionHandler(ExceptionType which) {
                     return handle_SC_ReadChar();
                 case SC_PrintChar:
                     return handle_SC_PrintChar();
-                case SC_RandomNum:
-                    return handle_SC_RandomNum();
                 case SC_ReadString:
                     return handle_SC_ReadString();
                 case SC_PrintString:
@@ -471,14 +384,6 @@ void ExceptionHandler(ExceptionType which) {
                     return handle_SC_Join();
                 case SC_Exit:
                     return handle_SC_Exit();
-                case SC_CreateSemaphore:
-                    return handle_SC_CreateSemaphore();
-                case SC_Wait:
-                    return handle_SC_Wait();
-                case SC_Signal:
-                    return handle_SC_Signal();
-                case SC_GetPid:
-                    return handle_SC_GetPid();
                 /**
                  * Handle all not implemented syscalls
                  * If you want to write a new handler for syscall:
@@ -488,11 +393,6 @@ void ExceptionHandler(ExceptionType which) {
                  */
                 case SC_Create:
                 case SC_Remove:
-                case SC_ThreadFork:
-                case SC_ThreadYield:
-                case SC_ExecV:
-                case SC_ThreadExit:
-                case SC_ThreadJoin:
                     return handle_not_implemented_SC(type);
 
                 default:
@@ -506,5 +406,6 @@ void ExceptionHandler(ExceptionType which) {
     }
     ASSERTNOTREACHED();
 }
+
 
 
