@@ -64,11 +64,9 @@ void quickSort(int arr[], int low, int high)
 
 int main()
 {
-    int n, i, buffer_size;
+    int n, i, buffer_size, id;
     int array[200];
     char buffer[10];
-    
-    OpenFileId op;
     
     PrintString("Nhap n: ");
     n = ReadInt();
@@ -80,7 +78,7 @@ int main()
     
     quickSort(array, 0, n - 1);
     
-    op = Open("quicksort.txt", 0);
+    id = Open("quicksort.txt", 0);
     
     for(i = 0; i < n; i++) {
         buffer_size = int_to_string(array[i], buffer);
@@ -88,11 +86,12 @@ int main()
         buffer[buffer_size++] = ' ';
         buffer[buffer_size] = '0';
         
-        Write(buffer, buffer_size, op);
+        Write(buffer, buffer_size, id);
     }
     
-    Close(op);
+    Close(id);
     Halt();
 }
+
 
 

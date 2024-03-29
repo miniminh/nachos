@@ -100,11 +100,17 @@ void mergeSort(int arr[], int l, int r)
 
 int main()
 {
-    int n, i, buffer_size;
+    int n, i, id, buffer_size;
     int array[99];
-    char buffer[20];
+    int buffer[20];
 
-    OpenFileId op;
+    char fileName[] = "mergesort.txt";
+
+    if (CreateFile(fileName) == 0) {
+        PrintString("File ");
+        PrintString(fileName);
+        PrintString(" created successfully!\n");
+    }
 
     PrintString("Nhap n: ");
     n = ReadInt();
@@ -116,21 +122,21 @@ int main()
 
     mergeSort(array, 0, n-1);
 
-    op = Open("quicksort.txt", 0);
-
+    id = Open(fileName, 0);
     for(i = 0; i < n; i++) {
         buffer_size = int_to_string(array[i], buffer);
 
         buffer[buffer_size++] = ' ';
         buffer[buffer_size] = '0';
 
-        Write(buffer, buffer_size, op);
+        Write(buffer, buffer_size, id);
     }
+    Close(id);
 
 
-    Close(op);
     Halt();
 }
+
 
 
 

@@ -112,7 +112,7 @@ ifeq ($(hosttype),unknown)
 PROGRAMS = unknownhost
 else
 # change this if you create a new test program!
-PROGRAMS = ascii help quicksort mergesort readfloat halt
+PROGRAMS = ascii help quicksort mergesort halt
 endif
 
 all: $(PROGRAMS)
@@ -126,12 +126,6 @@ halt: halt.o start.o
 	$(LD) $(LDFLAGS) start.o halt.o -o halt.coff
 	$(COFF2NOFF) halt.coff halt
 	
-readfloat.o: readfloat.c
-	$(CC) $(CFLAGS) -c readfloat.c
-readfloat: readfloat.o start.o
-	$(LD) $(LDFLAGS) start.o readfloat.o -o readfloat.coff
-	$(COFF2NOFF) readfloat.coff readfloat
-
 ascii.o: ascii.c
 	$(CC) $(CFLAGS) -c ascii.c
 ascii: ascii.o start.o
@@ -168,5 +162,6 @@ unknownhost:
 	@echo make is terminating.
 	@echo If you are on an MFCF machine, contact the instructor to report this problem
 	@echo Otherwise, edit Makefile.dep and try again.
+
 
 
