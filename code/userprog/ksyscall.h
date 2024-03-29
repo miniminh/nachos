@@ -15,12 +15,13 @@
 #include "synchconsole.h"
 #include "ksyscallhelper.h"
 #include <stdlib.h>
+#include <stdint.h>
 
 void SysHalt() { kernel->interrupt->Halt(); }
 
 int SysAdd(int op1, int op2) { return op1 + op2; }
 
-int SysReadNum() {
+int SysReadInt() {
     readUntilBlank();
 
     int len = strlen(_numberBuffer);
@@ -86,7 +87,7 @@ int SysReadNum() {
     return 0;
 }
 
-void SysPrintNum(int num) {
+void SysPrintInt(int num) {
     if (num == 0) return kernel->synchConsoleOut->PutChar('0');
 
     if (num == INT32_MIN) {
@@ -130,6 +131,21 @@ void SysPrintString(char* buffer, int length) {
     for (int i = 0; i < length; i++) {
         kernel->synchConsoleOut->PutChar(buffer[i]);
     }
+}
+
+float* SysReadFloat() {
+    readUntilBlank();
+    int len = strlen(_numberBuffer);
+    if (len == 0) return 0;
+   	float* f = new float;
+   	string_to_float(_numberBuffer, f);
+   	return f;
+}
+
+void SysPrintFloat(float* f) {
+    int len;
+   	char* buffer = float_to_string(*f, len);
+    SysPrintString(buffer, len);
 }
 
 bool SysCreateFile(char* fileName) {
@@ -247,3 +263,4 @@ int SysSignal(char* name) {
 int SysGetPid() { return kernel->currentThread->processID; }
 
 #endif /* ! __USERPROG_KSYSCALL_H__ */
+

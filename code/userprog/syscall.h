@@ -36,8 +36,8 @@
 #define SC_ThreadJoin 15
 
 #define SC_Add 42
-#define SC_ReadNum 43
-#define SC_PrintNum 44
+#define SC_ReadInt 43
+#define SC_PrintInt 44
 #define SC_ReadChar 45
 #define SC_PrintChar 46
 #define SC_RandomNum 47
@@ -48,6 +48,8 @@
 #define SC_Wait 52
 #define SC_Signal 53
 #define SC_GetPid 54
+#define SC_ReadFloat 55
+#define SC_PrintFloat 56
 
 #ifndef IN_ASM
 
@@ -70,9 +72,9 @@ void Halt();
 
 int Add(int op1, int op2);
 
-int ReadNum();
+int ReadInt();
 
-void PrintNum(int num);
+void PrintInt(int num);
 
 char ReadChar();
 
@@ -178,6 +180,10 @@ int Close(OpenFileId id);
 // Ham tao 1 semaphore voi ten semaphore
 int CreateSemaphore(char *name, int semval);
 
+float* ReadFloat();
+
+void PrintFloat(float* number);
+
 int Wait(char *name);
 
 int Signal(char *name);
@@ -213,3 +219,5 @@ void ThreadExit(int ExitCode);
 #endif /* IN_ASM */
 
 #endif /* SYSCALL_H */
+
+

@@ -112,7 +112,7 @@ ifeq ($(hosttype),unknown)
 PROGRAMS = unknownhost
 else
 # change this if you create a new test program!
-PROGRAMS = add halt shell matmult sort segments test_syscall num_io char_io random str_io ascii bubblesort help create_file open_file readwrite exec test_sem sinhvien voinuoc main
+PROGRAMS = ascii help quicksort mergesort readfloat halt
 endif
 
 all: $(PROGRAMS)
@@ -125,67 +125,12 @@ halt.o: halt.c
 halt: halt.o start.o
 	$(LD) $(LDFLAGS) start.o halt.o -o halt.coff
 	$(COFF2NOFF) halt.coff halt
-
-add.o: add.c
-	$(CC) $(CFLAGS) -c add.c
-
-add: add.o start.o
-	$(LD) $(LDFLAGS) start.o add.o -o add.coff
-	$(COFF2NOFF) add.coff add
-
-shell.o: shell.c
-	$(CC) $(CFLAGS) -c shell.c
-shell: shell.o start.o
-	$(LD) $(LDFLAGS) start.o shell.o -o shell.coff
-	$(COFF2NOFF) shell.coff shell
-
-sort.o: sort.c
-	$(CC) $(CFLAGS) -c sort.c
-sort: sort.o start.o
-	$(LD) $(LDFLAGS) start.o sort.o -o sort.coff
-	$(COFF2NOFF) sort.coff sort
-
-segments.o: segments.c
-	$(CC) $(CFLAGS) -c segments.c
-segments: segments.o start.o
-	$(LD) $(LDFLAGS) start.o segments.o -o segments.coff
-	$(COFF2NOFF) segments.coff segments
-
-matmult.o: matmult.c
-	$(CC) $(CFLAGS) -c matmult.c
-matmult: matmult.o start.o
-	$(LD) $(LDFLAGS) start.o matmult.o -o matmult.coff
-	$(COFF2NOFF) matmult.coff matmult
-
-test_syscall.o: test_syscall.c
-	$(CC) $(CFLAGS) -c test_syscall.c
-test_syscall: test_syscall.o start.o
-	$(LD) $(LDFLAGS) start.o test_syscall.o -o test_syscall.coff
-	$(COFF2NOFF) test_syscall.coff test_syscall
-
-num_io.o: num_io.c
-	$(CC) $(CFLAGS) -c num_io.c
-num_io: num_io.o start.o
-	$(LD) $(LDFLAGS) start.o num_io.o -o num_io.coff
-	$(COFF2NOFF) num_io.coff num_io
-
-char_io.o: char_io.c
-	$(CC) $(CFLAGS) -c char_io.c
-char_io: char_io.o start.o
-	$(LD) $(LDFLAGS) start.o char_io.o -o char_io.coff
-	$(COFF2NOFF) char_io.coff char_io
-
-random.o: random.c
-	$(CC) $(CFLAGS) -c random.c
-random: random.o start.o
-	$(LD) $(LDFLAGS) start.o random.o -o random.coff
-	$(COFF2NOFF) random.coff random
-
-str_io.o: str_io.c
-	$(CC) $(CFLAGS) -c str_io.c
-str_io: str_io.o start.o
-	$(LD) $(LDFLAGS) start.o str_io.o -o str_io.coff
-	$(COFF2NOFF) str_io.coff str_io
+	
+readfloat.o: readfloat.c
+	$(CC) $(CFLAGS) -c readfloat.c
+readfloat: readfloat.o start.o
+	$(LD) $(LDFLAGS) start.o readfloat.o -o readfloat.coff
+	$(COFF2NOFF) readfloat.coff readfloat
 
 ascii.o: ascii.c
 	$(CC) $(CFLAGS) -c ascii.c
@@ -193,65 +138,23 @@ ascii: ascii.o start.o
 	$(LD) $(LDFLAGS) start.o ascii.o -o ascii.coff
 	$(COFF2NOFF) ascii.coff ascii
 
-bubblesort.o: bubblesort.c
-	$(CC) $(CFLAGS) -c bubblesort.c
-bubblesort: bubblesort.o start.o
-	$(LD) $(LDFLAGS) start.o bubblesort.o -o bubblesort.coff
-	$(COFF2NOFF) bubblesort.coff bubblesort
-
 help.o: help.c
 	$(CC) $(CFLAGS) -c help.c
 help: help.o start.o
 	$(LD) $(LDFLAGS) start.o help.o -o help.coff
 	$(COFF2NOFF) help.coff help
 
-create_file.o: create_file.c
-	$(CC) $(CFLAGS) -c create_file.c
-create_file: create_file.o start.o
-	$(LD) $(LDFLAGS) start.o create_file.o -o create_file.coff
-	$(COFF2NOFF) create_file.coff create_file
-
-open_file.o: open_file.c
-	$(CC) $(CFLAGS) -c open_file.c
-open_file: open_file.o start.o
-	$(LD) $(LDFLAGS) start.o open_file.o -o open_file.coff
-	$(COFF2NOFF) open_file.coff open_file
-
-readwrite.o: readwrite.c
-	$(CC) $(CFLAGS) -c readwrite.c
-readwrite: readwrite.o start.o
-	$(LD) $(LDFLAGS) start.o readwrite.o -o readwrite.coff
-	$(COFF2NOFF) readwrite.coff readwrite
-
-exec.o: exec.c
-	$(CC) $(CFLAGS) -c exec.c
-exec: exec.o start.o
-	$(LD) $(LDFLAGS) start.o exec.o -o exec.coff
-	$(COFF2NOFF) exec.coff exec
-
-test_sem.o: test_sem.c
-	$(CC) $(CFLAGS) -c test_sem.c
-test_sem: test_sem.o start.o
-	$(LD) $(LDFLAGS) start.o test_sem.o -o test_sem.coff
-	$(COFF2NOFF) test_sem.coff test_sem
-
-sinhvien.o: sinhvien.c
-	$(CC) $(CFLAGS) -c sinhvien.c
-sinhvien: sinhvien.o start.o
-	$(LD) $(LDFLAGS) start.o sinhvien.o -o sinhvien.coff
-	$(COFF2NOFF) sinhvien.coff sinhvien
-
-voinuoc.o: voinuoc.c
-	$(CC) $(CFLAGS) -c voinuoc.c
-voinuoc: voinuoc.o start.o
-	$(LD) $(LDFLAGS) start.o voinuoc.o -o voinuoc.coff
-	$(COFF2NOFF) voinuoc.coff voinuoc
-
-main.o: main.c
-	$(CC) $(CFLAGS) -c main.c
-main: main.o start.o
-	$(LD) $(LDFLAGS) start.o main.o -o main.coff
-	$(COFF2NOFF) main.coff main
+quicksort.o: quicksort.c
+	$(CC) $(CFLAGS) -c quicksort.c
+quicksort: quicksort.o start.o
+	$(LD) $(LDFLAGS) start.o quicksort.o -o quicksort.coff
+	$(COFF2NOFF) quicksort.coff quicksort
+	
+mergesort.o: mergesort.c
+	$(CC) $(CFLAGS) -c mergesort.c
+mergesort: mergesort.o start.o
+	$(LD) $(LDFLAGS) start.o mergesort.o -o mergesort.coff
+	$(COFF2NOFF) mergesort.coff mergesort
 
 clean:
 	$(RM) -f *.o *.ii
@@ -265,3 +168,5 @@ unknownhost:
 	@echo make is terminating.
 	@echo If you are on an MFCF machine, contact the instructor to report this problem
 	@echo Otherwise, edit Makefile.dep and try again.
+
+
