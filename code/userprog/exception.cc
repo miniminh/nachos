@@ -25,6 +25,7 @@
 #include "main.h"
 #include "syscall.h"
 #include "ksyscall.h"
+#include "ksyscallhelper.h"
 //----------------------------------------------------------------------
 // ExceptionHandler
 // 	Entry point into the Nachos kernel.  Called when a user program
@@ -366,6 +367,26 @@ void ExceptionHandler(ExceptionType which) {
    					return handle_SC_ReadFloat();
    				case SC_PrintFloat:
    					return handle_SC_PrintFloat();
+                case SC_CompareFloat:
+                {
+                    float* a = (float *)kernel->machine->ReadRegister(4);
+                    float* b = (float *)kernel->machine->ReadRegister(5);
+                    if (*a < *b) kernel->machine->WriteRegister(2, -1);
+                    else if (*a > *b) kernel->machine->WriteRegister(2, 1);
+                    else kernel->machine->WriteRegister(2, 0);
+                    return move_program_counter();
+                }
+                case SC_FloatToString:
+                {
+                    int memPtr = kernel->machine->ReadRegister(4);
+                    float* f = (float*)kernel->machine->ReadRegister(5);
+                    int len;
+                    char* buffer = float_to_string(*f, len);
+                    StringSys2User(buffer, memPtr);
+                    kernel->machine->WriteRegister(2, len);
+                    delete[] buffer;
+                    return move_program_counter();
+                }
                 case SC_CreateFile:
                     return handle_SC_CreateFile();
                 case SC_Open:
@@ -406,6 +427,8 @@ void ExceptionHandler(ExceptionType which) {
     }
     ASSERTNOTREACHED();
 }
+
+
 
 
 

@@ -53,3 +53,4 @@ class SynchConsoleOutput : public CallBackObj {
 };
 
 #endif  // SYNCHCONSOLE_H
+
