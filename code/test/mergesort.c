@@ -1,87 +1,143 @@
 #include "syscall.h"
 
-
-void Merge(float* arr[], int l, int m, int r)
+int int_to_string(int number, char buffer[]) {
+    int isNegative = 0;
+    int numberSize = 0;
+    int temp = number;
+    int i, k;
+    if(number == 0){
+        buffer[0] = '0';
+        return 1;
+    }
+    if(number < 0){
+        isNegative = 1;
+        number = number * (-1);
+    }
+    while(temp > 0){
+        numberSize++;
+        temp = temp / 10;
+    }
+    temp = number;
+	if (isNegative) {
+		buffer[0] = '-';
+		numberSize = numberSize + 1;
+	}
+	for (i = numberSize - 1; i >= 0; i--) {
+		if (isNegative && i == 0) break;
+		k = temp % 10;
+		buffer[i] = k + 48;
+		temp = temp / 10;
+	}
+	buffer[numberSize] = 0;
+    return numberSize;
+}
+void merge(int arr[], int l, int m, int r)
 {
-	int i, j, k;
-	int n1 = m - l + 1;
-	int n2 = r - m;
- 	float* left[n1];
- 	float* right[n2];
-	for (i = 0; i < n1; i++)
-		left[i] = arr[l + i];
-	for (j = 0; j < n2; j++)
-		right[j] = arr[m + 1 + j];
+    int i, j, k;
+    int n1 = m - l + 1;
+    int n2 = r - m;
+
+    // Create temp arrays
+    int L[n1+1], R[n2+1];
+
+
+    for (i = 0; i < n1; i++) {
+        L[i] = arr[l + i];
+        }
+    for (j = 0; j < n2; j++) {
+        R[j] = arr[m + 1 + j];
+
+    }
+
+
     i = 0;
-	j = 0;
-	k = l;
-	while (i < n1 && j < n2) {
-		if (FloatComp(left[i], right[j]) == -1) {
-			arr[k] = left[i];
-			i++;
-		}
-		else {
-			arr[k] = right[j];
-			j++;
-		}
-		k++;
-	}
-	while (i < n1) {
-		arr[k] = left[i];
-		i++;
-		k++;
-	}
-	while (j < n2) {
-		arr[k] = right[j];
-		j++;
-		k++;
-	}
-}
-void MergeSort(float* arr[], int l, int r)
-{
-	if (l < r) {
-		int m = l + (r - l) / 2;
-		MergeSort(arr, l, m);
-		MergeSort(arr, m + 1, r);
-		Merge(arr, l, m, r);
-	}
+    j = 0;
+    k = l;
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            arr[k] = L[i];
+            i++;
+        }
+        else {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+
+    // Copy the remaining elements of L[],
+    // if there are any
+    while (i < n1) {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+
+    // Copy the remaining elements of R[],
+    // if there are any
+    while (j < n2) {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
 }
 
-int
-main()
+// l is for left index and r is right index of the
+// sub-array of arr to be sorted
+void mergeSort(int arr[], int l, int r)
 {
-	float* f[100];
-	int n, i, id, buffer_size;
-	
-	char buffer[20];
+    if (l < r) {
+        int m = l + ((r - l) / 2);
+
+        // Sort first and second halves
+        mergeSort(arr, l, m);
+        mergeSort(arr, m + 1, r);
+
+        merge(arr, l, m, r);
+    }
+}
+
+
+int main()
+{
+    int n, i, id, buffer_size;
+    int array[99];
+    int buffer[20];
+
     char fileName[] = "mergesort.txt";
 
-    PrintString("Nhap n: ");
-	n = ReadInt();
-	
-	PrintString("Xin hay nhap chuoi so thuc:\n");
-	for (i = 0; i < n; ++i)
-	{
-		f[i] = ReadFloat();
-	}
-	MergeSort(f, 0, n - 1);
-	if (CreateFile(fileName) == 0) {
+    if (CreateFile(fileName) == 0) {
         PrintString("File ");
         PrintString(fileName);
         PrintString(" created successfully!\n");
     }
-    
-    id = Open(fileName, 0);
-    
+
+    PrintString("Nhap n: ");
+    n = ReadInt();
+
+    PrintString("Xin hay nhap chuoi so nguyen:\n");
     for(i = 0; i < n; i++) {
-        buffer_size = FloatToString(buffer, f[i]);
-        
+        array[i] = ReadInt();
+    }
+
+    mergeSort(array, 0, n-1);
+
+    id = Open(fileName, 0);
+    for(i = 0; i < n; i++) {
+        buffer_size = int_to_string(array[i], buffer);
+
         buffer[buffer_size++] = ' ';
         buffer[buffer_size] = '0';
 
         Write(buffer, buffer_size, id);
     }
     Close(id);
+
+
     Halt();
 }
+
+
+
+
 

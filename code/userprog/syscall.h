@@ -40,10 +40,6 @@
 #define SC_ReadFloat 49
 #define SC_PrintFloat 50
 
-#define SC_CompareFloat 51
-#define SC_FloatToString 52
-
-
 #ifndef IN_ASM
 
 /* The system call interface.  These are the operations the Nachos
@@ -165,16 +161,9 @@ float* ReadFloat();
 
 void PrintFloat(float* number);
 
-int FloatComp(float* a, float* b);
-
-int FloatToString(char* buffer, float* number);
-
-
 #endif /* IN_ASM */
 
 #endif /* SYSCALL_H */
-
-
 
 
 

@@ -242,4 +242,3 @@ void Kernel::NetworkTest() {
 
     // Then we're done!
 }
-

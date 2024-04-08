@@ -128,4 +128,3 @@ int SynchConsoleOutput::PutString(char *buffer, int size) {
 //----------------------------------------------------------------------
 
 void SynchConsoleOutput::CallBack() { waitFor->V(); }
-
