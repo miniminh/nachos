@@ -67,7 +67,6 @@ int main()
     int n, i, buffer_size, id;
     int array[200];
     char buffer[10];
-    char fileName[] = "quicksort.txt";
     
     PrintString("Nhap n: ");
     n = ReadInt();
@@ -76,16 +75,10 @@ int main()
     for(i = 0; i < n; i++) {
         array[i] = ReadInt();
     }
-
-    quickSort(array, 0, n - 1);
-
-    if (CreateFile(fileName) == 0) {
-        PrintString("File ");
-        PrintString(fileName);
-        PrintString(" created successfully!\n");
-    }
     
-    id = Open(fileName, 0);
+    quickSort(array, 0, n - 1);
+    
+    id = Open("quicksort.txt", 0);
     
     for(i = 0; i < n; i++) {
         buffer_size = int_to_string(array[i], buffer);
@@ -99,7 +92,6 @@ int main()
     Close(id);
     Halt();
 }
-
 
 
 
