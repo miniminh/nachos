@@ -132,18 +132,6 @@ help: help.o start.o
 	$(LD) $(LDFLAGS) start.o help.o -o help.coff
 	$(COFF2NOFF) help.coff help
 
-quicksort.o: quicksort.c
-	$(CC) $(CFLAGS) -c quicksort.c
-quicksort: quicksort.o start.o
-	$(LD) $(LDFLAGS) start.o quicksort.o -o quicksort.coff
-	$(COFF2NOFF) quicksort.coff quicksort
-	
-mergesort.o: mergesort.c
-	$(CC) $(CFLAGS) -c mergesort.c
-mergesort: mergesort.o start.o
-	$(LD) $(LDFLAGS) start.o mergesort.o -o mergesort.coff
-	$(COFF2NOFF) mergesort.coff mergesort
-
 clean:
 	$(RM) -f *.o *.ii
 	$(RM) -f *.coff
