@@ -68,8 +68,6 @@
  * from the system call entry point in exception.cc.
  */
  
-int Sum(int a, int b);
-
 // Address space control operations: Exit, Exec, and Join
 // Chuong trinh nguoi dung da chay xong (status = 0 nghia la thoat hop le)
 void Exit(int status);	
