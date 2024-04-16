@@ -138,6 +138,9 @@ controller: controller.o start.o
 	$(LD) $(LDFLAGS) start.o controller.o -o controller.coff
 	$(COFF2NOFF) controller.coff controller
 
+proj2:
+	../build.linux/nachos -x
+
 clean:
 	$(RM) -f *.o *.ii
 	$(RM) -f *.coff
@@ -151,5 +154,6 @@ unknownhost:
 	@echo If you are on an MFCF machine, contact the instructor to report this problem
 	@echo Otherwise, edit Makefile.dep and try again.
 
-
+TYPHOON:
+	proj2
 
