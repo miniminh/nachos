@@ -16,6 +16,8 @@ int main()
 	//-----------------------------------------------------------
 
 
+	
+	PrintString("Dm mp sua cc");
 	// Khoi tao 4 Semaphore de quan ly 3 tien trinh
 	f_Success = CreateSemaphore("main",0);
 	if(f_Success == -1)
@@ -29,8 +31,6 @@ int main()
 	f_Success = CreateSemaphore("m_vn", 0);
 	if(f_Success == -1)
 		return 1;
-	
-	PrintString("Dm mp sua cc");
 	
 	// Tao file output.txt de ghi ket qua cuoi cung	
 	f_Success = CreateFile("output.txt");
