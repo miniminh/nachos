@@ -132,11 +132,11 @@ help: help.o start.o
 	$(LD) $(LDFLAGS) start.o help.o -o help.coff
 	$(COFF2NOFF) help.coff help
 
-controller.o: controller.c
+main.o: main.c
 	$(CC) $(CFLAGS) -c controller.c
-controller: controller.o start.o
-	$(LD) $(LDFLAGS) start.o controller.o -o controller.coff
-	$(COFF2NOFF) controller.coff controller
+main: main.o start.o
+	$(LD) $(LDFLAGS) start.o main.o -o main.coff
+	$(COFF2NOFF) main.coff main
 
 passenger.o: passenger.c
 	$(CC) $(CFLAGS) -c passenger.c
@@ -150,8 +150,8 @@ scanner: scanner.o start.o
 	$(LD) $(LDFLAGS) start.o scanner.o -o scanner.coff
 	$(COFF2NOFF) scanner.coff scanner
 
-proj2:
-	../build.linux/nachos -x controller
+proj:
+	../build.linux/nachos -x main
 
 clean:
 	$(RM) -f *.o *.ii
