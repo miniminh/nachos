@@ -303,9 +303,12 @@ void handle_SC_Exit() {
 
 void handle_SC_CreateSemaphore() {
     int virtAddr = kernel->machine->ReadRegister(4);
+	PrintString("ok1\n");
     int semval = kernel->machine->ReadRegister(5);
+	PrintString("ok2\n");
 
     char* name = stringUser2System(virtAddr);
+	PrintString("ok3\n");
     if (name == NULL) {
         DEBUG(dbgSys, "\n Not enough memory in System");
         ASSERT(false);

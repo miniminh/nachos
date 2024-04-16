@@ -19,7 +19,7 @@ int main()
 	
 	// Khoi tao 4 Semaphore de quan ly 3 tien trinh
 	f_Success = CreateSemaphore("main",0);
-	PrintString("Dm mp sua cc\n");
+	PrintString("ok\n");
 	if(f_Success == -1)
 		return 1;
 	f_Success = CreateSemaphore("passenger", 0);
