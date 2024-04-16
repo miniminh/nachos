@@ -30,6 +30,8 @@ int main()
 	if(f_Success == -1)
 		return 1;
 	
+	PrintString("Dm mp sua cc");
+	
 	// Tao file output.txt de ghi ket qua cuoi cung	
 	f_Success = CreateFile("output.txt");
 	if(f_Success == -1)
