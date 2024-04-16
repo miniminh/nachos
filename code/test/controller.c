@@ -1,124 +1,175 @@
 #include "syscall.h"
+#include "copyright.h"
 
-#define NUM_SCANNER 3
-#define BUFFER_LEN 1
+#define MAX_LENGTH 32
 
-int main() {
-    int file_input, file_passenger;
-    char buffer[BUFFER_LEN];
-    int scanners[NUM_SCANNER];
-    int i;
-    int n;
-    int tmp;
-    int last_customer;
-    int passenger;
 
-    //Đọc yêu cầu từ đề bài
-    file_input = Open("input.txt", 1);
-    if (file_input == -1) {
-        PrintString("Cannot open file input.txt\n");
-        return 1;
-    }
+int main()
+{
+	// KHAI BAO
+	int f_Success; // Bien co dung de kiem tra thanh cong
+	SpaceId si_input, si_output, si_sinhvien, si_result;	// Bien id cho file
+	int SLTD;	// Luu so luong thoi diem xet
+	char c_readFile;	// Bien ki tu luu ki tu doc tu file
+	//int flag;
 
-    //Đọc vào n thời điểm cần xét
-    n = 0;
-    while (1) {
-        Read(buffer, 1, file_input);
-        if (buffer[0] == '\n') break;
+	//-----------------------------------------------------------
 
-        n = n * 10 + buffer[0] - '0';
-    }
 
-    PrintString("Number of considering time: ");
-    PrintInt(n);
-    PrintString("\n");
+	// Khoi tao 4 Semaphore de quan ly 3 tien trinh
+	f_Success = CreateSemaphore("main",0);
+	if(f_Success == -1)
+		return 1;
+	f_Success = CreateSemaphore("passenger", 0);
+	if(f_Success == -1)
+		return 1;
+	f_Success = CreateSemaphore("scanner", 0);
+	if(f_Success == -1)
+		return 1;
+	f_Success = CreateSemaphore("m_vn", 0);
+	if(f_Success == -1)
+		return 1;
+	
+	// Tao file output.txt de ghi ket qua cuoi cung	
+	f_Success = CreateFile("output.txt");
+	if(f_Success == -1)
+		return 1;
+	
+	// Mo file input.txt chi de doc
+	si_input = Open("input.txt", 1);
+	if(si_input == -1)
+		return 1;
+	
+	// Mo file output.txt de doc va ghi
+	si_output = Open("output.txt", 0);
+	if(si_output == -1)
+	{
+		Close(si_input);
+		return 1;
+	}
 
-    //Tạo file kết quả
-    if (CreateFile("output.txt")) {
-        PrintString("Cannot create file output.txt\n");
-        return 1;
-    }
+	// Doc so luong thoi diem xet o file input.txt
+	//**** Thuc hien xong doan lenh duoi thi con tro file o input.txt o dong 1
+	SLTD = 0;
+	while(1)
+	{
+		Read(&c_readFile, 1, si_input);
+		if(c_readFile != '\n')
+		{
+			if(c_readFile >= '0' && c_readFile <= '9')
+				SLTD = SLTD * 10 + (c_readFile - 48);
+		}
+		else
+			break;
+	}
 
-    //Tạo file giá trị trung gian để đẩy vào máy scan
-    if (CreateFile("scan.txt")) {
-        PrintString("Cannot create file scan.txt\n");
-        return 1;
-    }
 
-    //Tạo file giá trị trung gian để lưu trữ số lượng hành lý của khách
-    if (CreateFile("passenger.txt")) {
-        PrintString("Cannot create file passenger.txt\n");
-        return 1;
-    }
+	// Goi thuc thi tien trinh passenger.c
+	f_Success = Exec("./test/passenger");
+	if(f_Success == -1)
+	{
+		Close(si_input);
+		Close(si_output);
+		return 1;
+	}
 
-    //Tạo semaphore cho máy scan thứ 1
-    tmp = CreateSemaphore("scan1", 0);
-    if (tmp == -1) {
-        PrintString("Create Semaphore for scan1 failed\n");
-        return 1;
-    }
-    //Tạo semaphore cho máy scan thứ 2
-    tmp = CreateSemaphore("scan2", 0);
-    if (tmp == -1) {
-        PrintString("Create Semaphore for scan2 failed\n");
-        return 1;
-    }
-    //Tạo semaphore cho máy scan thứ 3
-    tmp = CreateSemaphore("scan3", 0);
-    if (tmp == -1) {
-        PrintString("Create Semaphore for scan3 failed\n");
-        return 1;
-    }
-    //Tạo semaphore cho hành khách
-    tmp = CreateSemaphore("passenger", 0);
-    if (tmp == -1) {
-        PrintString("Create Semaphore for passenger failed\n");
-        return 1;
-    }
-    //Tạo semaphore cho hành khách
-    tmp = CreateSemaphore("main", 0);
-    if (tmp == -1) {
-        PrintString("Create Semaphore for main failed\n");
-        return 1;
-    }
+	// Goi thuc thi tien trinh scanner.c
+	f_Success = Exec("./test/scanner");
+	if(f_Success == -1)
+	{
+		Close(si_input);
+		Close(si_output);
+		return 1;
+	}
 
-    for (i = 0; i < NUM_SCANNER; i++) {
-        scanners[i] = Exec("scanner");
-        if (scanners[i] == -1) {
-            PrintString("Create scanner failed\n");
-            return 1;
-        }
-    }
-    passenger = Exec("passenger");
-    if (passenger == 1) {
-        PrintString("Create passenger failed\n");
-        return 1;
-    }
+	// Thuc hien xu ly khi nao het thoi diem xet thi thoi
+	while(SLTD--)
+	{
+		// Tao file passenger.txt
+		f_Success = CreateFile("passenger.txt");
+		if(f_Success == -1)
+		{
+			Close(si_input);
+			Close(si_output);
+			return 1;
+		}
+		
+		// Mo file passenger.txt de ghi tung dong passenger tu file input.txt
+		si_sinhvien = Open("passenger.txt", 0);
+		if(si_sinhvien == -1)
+		{
+			Close(si_input);
+			Close(si_output);
+			return 1;
+		}
+		while(1)
+		{
+			if(Read(&c_readFile, 1, si_input) < 1)
+			{
+				// Doc toi cuoi file
+				break;
+			}
+			if(c_readFile != '\n')
+			{
+				Write(&c_readFile, 1, si_sinhvien);				
+			}
+			else
+				break;
+						
+		}
+		// Dong file passenger.txt lai
+		Close(si_sinhvien);
+			
+		// Goi tien trinh passenger hoat dong
+		Signal("passenger");
 
-    file_passenger = Open("passenger.txt", 2);
+		// Tien trinh chinh phai cho 
+		Wait("main");	
+		
+		// Thuc hien doc file tu result va ghi vao ket qua o output.txt
+		si_result = Open("result.txt", 1);
+		if(si_result == -1)
+		{
+			Close(si_input);
+			Close(si_output);
+			return 1;
+		}
 
-    //Xử lý n thời điểm
-    //Ứng với mỗi thời điểm, đẩy số lượng hành lý cho khách hàng ở file passenger.txt
-    while (n--) {
-        last_customer = 0;
-        while (!last_customer) {
-            while (1) {
-                Read(buffer, 1, file_input);
-                if (buffer[0] == ' ') break;
-                if (buffer[0] == '\n') {
-                    last_customer = 1;
-                    break;
-                }
-                Write(buffer, 1, file_passenger);
-            }
+		PrintString("\n Lan thu: ");
+		PrintInt(SLTD);
+		PrintString("\n");	
 
-        }
-        
-        //Chờ xử lý xong ở mỗi thời điểm mới đẩy hành lý tiếp
-        Wait("main");
-    }
-    
-    Close(file_input);
-
-    return 0;
+		// Doc cac voi vao output.txt		
+		si_sinhvien = Open("passenger.txt", 0);
+		while(1)
+		{
+			while (1){
+				if (Read(&c_readFile,1,si_sinhvien) < 1){
+					Write(" ", 1, si_output);
+					break;
+				}
+				if (c_readFile < '0' && c_readFile > '9'){
+					Write(" ", 1, si_output);
+					break;
+				}
+				Write(&c_readFile, 1, si_output);
+			}
+			if(Read(&c_readFile, 1, si_result)  < 1)
+			{
+				Write("\r\n", 2, si_output);
+				Close(si_result);
+				Signal("m_vn");
+				break;
+			}
+			Write(&c_readFile, 1, si_output);
+			Write("     ", 5, si_output);	
+		}
+		
+	}
+	
+	Close(si_sinhvien);
+	Close(si_input);
+	Close(si_output);
+	return 0;	
+	
 }
