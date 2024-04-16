@@ -223,6 +223,7 @@ int SysJoin(int id) { return kernel->pTab->JoinUpdate(id); }
 int SysExit(int id) { return kernel->pTab->ExitUpdate(id); }
 
 int SysCreateSemaphore(char* name, int initialValue) {
+    PrintString("clm co vo day k");
     int res = kernel->semTab->Create(name, initialValue);
 
     if (res == -1) {
