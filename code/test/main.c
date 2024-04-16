@@ -11,7 +11,6 @@ int main()
 	SpaceId si_input, si_output, si_passenger, si_result;	// Bien id cho file
 	int SLTD;	// Luu so luong thoi diem xet
 	char c_readFile;	// Bien ki tu luu ki tu doc tu file
-	//int flag;
 
 	//-----------------------------------------------------------
 	
