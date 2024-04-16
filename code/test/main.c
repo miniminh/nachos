@@ -14,8 +14,6 @@ int main()
 	//int flag;
 
 	//-----------------------------------------------------------
-
-
 	
 	// Khoi tao 4 Semaphore de quan ly 3 tien trinh
 	PrintString("ok main 1\n");
