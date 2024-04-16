@@ -133,7 +133,7 @@ help: help.o start.o
 	$(COFF2NOFF) help.coff help
 
 main.o: main.c
-	$(CC) $(CFLAGS) -c controller.c
+	$(CC) $(CFLAGS) -c main.c
 main: main.o start.o
 	$(LD) $(LDFLAGS) start.o main.o -o main.coff
 	$(COFF2NOFF) main.coff main
