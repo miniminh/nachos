@@ -74,6 +74,22 @@ Join:
 	j	$31
 	.end Join
 
+	.globl Create
+	.ent	Create
+Create:
+	addiu $2,$0,SC_Create
+	syscall
+	j	$31
+	.end Create
+
+	.globl Remove
+	.ent	Remove
+Remove:
+	addiu $2,$0,SC_Remove
+	syscall
+	j	$31
+	.end Remove
+
 	.globl Open
 	.ent	Open
 Open:
@@ -170,7 +186,7 @@ CreateFile:
 	j	$31
 	.end CreateFile
 
-		.globl CreateSemaphore
+	.globl CreateSemaphore
 	.ent	CreateSemaphore
 CreateSemaphore:
 	addiu $2,$0,SC_CreateSemaphore

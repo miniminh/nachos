@@ -30,6 +30,12 @@
 #define SC_Seek 9
 #define SC_Close 10
 
+#define SC_ThreadFork 11
+#define SC_ThreadYield 12
+#define SC_ExecV 13
+#define SC_ThreadExit 14
+#define SC_ThreadJoin 15
+
 #define SC_ReadInt 42
 #define SC_PrintInt 43
 #define SC_ReadChar 44
@@ -39,6 +45,11 @@
 #define SC_CreateFile 48
 #define SC_ReadFloat 49
 #define SC_PrintFloat 50
+
+#define SC_CreateSemaphore 51
+#define SC_Wait 52
+#define SC_Signal 53
+#define SC_GetPid 54
 
 #ifndef IN_ASM
 
