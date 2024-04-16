@@ -132,6 +132,12 @@ help: help.o start.o
 	$(LD) $(LDFLAGS) start.o help.o -o help.coff
 	$(COFF2NOFF) help.coff help
 
+controller.o: controller.c
+	$(CC) $(CFLAGS) -c controller.c
+controller: controller.o start.o
+	$(LD) $(LDFLAGS) start.o controller.o -o controller.coff
+	$(COFF2NOFF) controller.coff controller
+
 clean:
 	$(RM) -f *.o *.ii
 	$(RM) -f *.coff
