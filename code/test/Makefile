@@ -112,7 +112,7 @@ ifeq ($(hosttype),unknown)
 PROGRAMS = unknownhost
 else
 # change this if you create a new test program!
-PROGRAMS = help halt
+PROGRAMS = help halt controller
 endif
 
 all: $(PROGRAMS)
