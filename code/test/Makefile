@@ -138,6 +138,18 @@ controller: controller.o start.o
 	$(LD) $(LDFLAGS) start.o controller.o -o controller.coff
 	$(COFF2NOFF) controller.coff controller
 
+passenger.o: passenger.c
+	$(CC) $(CFLAGS) -c passenger.c
+passenger: passenger.o start.o
+	$(LD) $(LDFLAGS) start.o passenger.o -o passenger.coff
+	$(COFF2NOFF) passenger.coff passenger
+
+scanner.o: scanner.c
+	$(CC) $(CFLAGS) -c scanner.c
+scanner: scanner.o start.o
+	$(LD) $(LDFLAGS) start.o scanner.o -o scanner.coff
+	$(COFF2NOFF) scanner.coff scanner
+
 proj2:
 	../build.linux/nachos -x controller
 
