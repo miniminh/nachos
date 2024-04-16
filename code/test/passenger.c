@@ -5,7 +5,7 @@ void main()
 {
 	// Khai bao
 	int f_Success; // Bien co dung de kiem tra thanh cong
-	SpaceId si_sinhvien, si_voinuoc;	// Bien id cho file
+	SpaceId si_passenger, si_voinuoc;	// Bien id cho file
 	char c_readFile;	// Bien ki tu luu ki tu doc tu file
 	int flag_VN;		// Bien co de nhay den tien trinh scanner
 	int flag_MAIN;		// Bien co de nhay den tien trinh main
@@ -30,22 +30,22 @@ void main()
 		}
 
 		// Mo file passenger.txt len de doc
-		si_sinhvien = Open("passenger.txt", 1);
-		if(si_sinhvien == -1)
+		si_passenger = Open("passenger.txt", 1);
+		if(si_passenger == -1)
 		{
 			Signal("main"); // tro ve tien trinh chinh
 			return;
 		}
 		
-		lengthFile = Seek(-1, si_sinhvien);
-		Seek(0, si_sinhvien);
+		lengthFile = Seek(-1, si_passenger);
+		Seek(0, si_passenger);
 		i_File = 0;
 	
 		// Tao file scanner.txt
 		f_Success = CreateFile("scanner.txt");
 		if(f_Success == -1)
 		{
-			Close(si_sinhvien);
+			Close(si_passenger);
 			Signal("main"); // tro ve tien trinh chinh
 			return;
 		}
@@ -55,7 +55,7 @@ void main()
 		si_voinuoc = Open("scanner.txt", 0);
 		if(si_voinuoc == -1)
 		{
-			Close(si_sinhvien);
+			Close(si_passenger);
 			Signal("main"); // tro ve tien trinh chinh
 			return;
 		}
@@ -64,7 +64,7 @@ void main()
 		while(i_File < lengthFile)
 		{
 			flag_VN = 0;
-			Read(&c_readFile, 1, si_sinhvien);
+			Read(&c_readFile, 1, si_passenger);
 			if(c_readFile != ' ')
 			{
 				Write(&c_readFile, 1, si_voinuoc);
@@ -91,7 +91,7 @@ void main()
 				f_Success = CreateFile("scanner.txt");
 				if(f_Success == -1)
 				{
-					Close(si_sinhvien);
+					Close(si_passenger);
 					Signal("main"); // tro ve tien trinh chinh
 					return;
 				}
@@ -101,7 +101,7 @@ void main()
 				si_voinuoc = Open("scanner.txt", 0);
 				if(si_voinuoc == -1)
 				{
-					Close(si_sinhvien);
+					Close(si_passenger);
 					Signal("main"); // tro ve tien trinh chinh
 					return;
 				}

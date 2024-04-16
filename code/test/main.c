@@ -8,7 +8,7 @@ int main()
 {
 	// KHAI BAO
 	int f_Success; // Bien co dung de kiem tra thanh cong
-	SpaceId si_input, si_output, si_sinhvien, si_result;	// Bien id cho file
+	SpaceId si_input, si_output, si_passenger, si_result;	// Bien id cho file
 	int SLTD;	// Luu so luong thoi diem xet
 	char c_readFile;	// Bien ki tu luu ki tu doc tu file
 	//int flag;
@@ -95,8 +95,8 @@ int main()
 		}
 		
 		// Mo file passenger.txt de ghi tung dong passenger tu file input.txt
-		si_sinhvien = Open("passenger.txt", 0);
-		if(si_sinhvien == -1)
+		si_passenger = Open("passenger.txt", 0);
+		if(si_passenger == -1)
 		{
 			Close(si_input);
 			Close(si_output);
@@ -111,14 +111,14 @@ int main()
 			}
 			if(c_readFile != '\n')
 			{
-				Write(&c_readFile, 1, si_sinhvien);				
+				Write(&c_readFile, 1, si_passenger);				
 			}
 			else
 				break;
 						
 		}
 		// Dong file passenger.txt lai
-		Close(si_sinhvien);
+		Close(si_passenger);
 			
 		// Goi tien trinh passenger hoat dong
 		Signal("passenger");
@@ -140,11 +140,11 @@ int main()
 		PrintString("\n");	
 
 		// Doc cac voi vao output.txt		
-		si_sinhvien = Open("passenger.txt", 0);
+		si_passenger = Open("passenger.txt", 0);
 		while(1)
 		{
 			while (1){
-				if (Read(&c_readFile,1,si_sinhvien) < 1){
+				if (Read(&c_readFile,1,si_passenger) < 1){
 					Write(" ", 1, si_output);
 					break;
 				}
@@ -167,7 +167,7 @@ int main()
 		
 	}
 	
-	Close(si_sinhvien);
+	Close(si_passenger);
 	Close(si_input);
 	Close(si_output);
 	return 0;	
