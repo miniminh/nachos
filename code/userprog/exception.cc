@@ -363,6 +363,7 @@ void handle_SC_GetPid() {
 }
 
 void ExceptionHandler(ExceptionType which) {
+    PrintString("ma buon ngu qua");
     int type = kernel->machine->ReadRegister(2);
 
     DEBUG(dbgSys, "Received Exception " << which << " type: " << type << "\n");

@@ -12,6 +12,7 @@ int main()
 	int SLTD;	// Luu so luong thoi diem xet
 	char c_readFile;	// Bien ki tu luu ki tu doc tu file
 
+
 	//-----------------------------------------------------------
 	
 	// Khoi tao 4 Semaphore de quan ly 3 tien trinh
