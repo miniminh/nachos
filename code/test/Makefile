@@ -139,7 +139,7 @@ controller: controller.o start.o
 	$(COFF2NOFF) controller.coff controller
 
 proj2:
-	../build.linux/nachos -x
+	../build.linux/nachos -x controller
 
 clean:
 	$(RM) -f *.o *.ii
