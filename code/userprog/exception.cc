@@ -302,6 +302,7 @@ void handle_SC_Exit() {
 }
 
 void handle_SC_CreateSemaphore() {
+	PrintString("ok\n");
     int virtAddr = kernel->machine->ReadRegister(4);
 	PrintString("ok1\n");
     int semval = kernel->machine->ReadRegister(5);
