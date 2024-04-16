@@ -414,6 +414,7 @@ void ExceptionHandler(ExceptionType which) {
                 case SC_Exit:
                     return handle_SC_Exit();
                 case SC_CreateSemaphore:
+	                PrintString("ok catch\n");
                     return handle_SC_CreateSemaphore();
                 case SC_Wait:
                     return handle_SC_Wait();
