@@ -63,7 +63,7 @@ int main()
 
 
 	// Goi thuc thi tien trinh passenger.c
-	f_Success = Exec("./test/passenger");
+	f_Success = Exec("passenger");
 	if(f_Success == -1)
 	{
 		Close(si_input);
@@ -72,16 +72,13 @@ int main()
 	}
 
 	// Goi thuc thi tien trinh scanner.c
-	f_Success = Exec("./test/scanner");
+	f_Success = Exec("scanner");
 	if(f_Success == -1)
 	{
 		Close(si_input);
 		Close(si_output);
 		return 1;
 	}
-	PrintString("Oke vailon: ");
-	PrintInt(SLTD);
-	PrintString("\n");
 	// Thuc hien xu ly khi nao het thoi diem xet thi thoi
 	while(SLTD--)
 	{
