@@ -79,7 +79,7 @@ int main()
 	PrintString("Exec thanh cong passenger\n");
 
 	// Goi thuc thi tien trinh scanner.c
-	f_Success = Exec("./test/scanner.c");
+	f_Success = Exec("scanner");
 	if(f_Success == -1)
 	{
 		PrintString("Exec khong thanh cong scanner\n");
