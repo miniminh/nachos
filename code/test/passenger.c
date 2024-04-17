@@ -36,14 +36,10 @@ void main()
 			Signal("main"); // tro ve tien trinh chinh
 			return;
 		}
-
-		PrintString("Mo file passenger de doc thanh cong\n");
 		
 		lengthFile = Seek(-1, si_passenger);
 		Seek(0, si_passenger);
 		i_File = 0;
-
-		PrintString("Quay len dau file passenger.txt thanh cong\n");
 	
 		// Tao file scanner.txt
 		f_Success = CreateFile("scanner.txt");
@@ -53,8 +49,6 @@ void main()
 			Signal("main"); // tro ve tien trinh chinh
 			return;
 		}
-
-		PrintString("Tao file scanner ok luon\n");
 		
 
 		// Mo file scanner.txt de ghi tung dung tich nuoc cua passenger

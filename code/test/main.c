@@ -164,6 +164,9 @@ int main()
 					Write(" ", 1, si_output);
 					break;
 				}
+				PrintString("Co ccg do d dung: ");
+				PrintChar(c_readFile);
+				PrintString("\n");
 				if (c_readFile < '0' && c_readFile > '9'){
 					Write(" ", 1, si_output);
 					break;
