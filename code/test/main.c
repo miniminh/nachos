@@ -66,7 +66,7 @@ int main()
 	PrintString("\n");
 
 	// Goi thuc thi tien trinh passenger.c
-	f_Success = Exec("./test/passenger.c");
+	f_Success = Exec("passenger");
 	if(f_Success == -1)
 	{
 		PrintString("Exec khong thanh cong passenger\n");
