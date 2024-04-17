@@ -138,6 +138,8 @@ int main()
 		// Goi tien trinh passenger hoat dong
 		Signal("passenger");
 
+		PrintString("Passenger xu ly thoai\n");
+
 		// Tien trinh chinh phai cho 
 		Wait("main");	
 		
