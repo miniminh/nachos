@@ -159,15 +159,18 @@ int main()
 
 		while(1)
 		{
+			PrintString("Hanh khach: ");
 			while (1){
 				if (Read(&c_readFile,1,si_passenger) < 1){
 					Write(" ", 1, si_output);
 					break;
 				}
 				if (c_readFile < '0' && c_readFile > '9'){
+					PrintChar('\n');
 					Write(" ", 1, si_output);
 					break;
 				}
+				PrintChar(c_readFile);
 				Write(&c_readFile, 1, si_output);
 			}
 			if(Read(&c_readFile, 1, si_result)  < 1)
@@ -177,7 +180,10 @@ int main()
 				Signal("m_vn");
 				break;
 			}
+			PrintString("May quet: ");
 			Write(&c_readFile, 1, si_output);
+			PrintChar(c_readFile);
+			PrintChar('\n');
 			Write("     ", 5, si_output);	
 		}
 		
