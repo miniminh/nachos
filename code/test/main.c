@@ -79,7 +79,9 @@ int main()
 		Close(si_output);
 		return 1;
 	}
-
+	PrintString("Oke vailon: ");
+	PrintInt(SLTD);
+	PrintString("\n");
 	// Thuc hien xu ly khi nao het thoi diem xet thi thoi
 	while(SLTD--)
 	{
