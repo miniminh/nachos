@@ -112,7 +112,7 @@ ifeq ($(hosttype),unknown)
 PROGRAMS = unknownhost
 else
 # change this if you create a new test program!
-PROGRAMS = help halt main
+PROGRAMS = help halt main passenger scanner
 endif
 
 all: $(PROGRAMS)
