@@ -66,7 +66,7 @@ int main()
 	PrintString("\n");
 
 	// Goi thuc thi tien trinh passenger.c
-	f_Success = Exec("passenger.c");
+	f_Success = Exec("./test/passenger.c");
 	if(f_Success == -1)
 	{
 		Close(si_input);
@@ -77,7 +77,7 @@ int main()
 	PrintString("Exec thanh cong passenger\n");
 
 	// Goi thuc thi tien trinh scanner.c
-	f_Success = Exec("scanner.c");
+	f_Success = Exec("./test/scanner.c");
 	if(f_Success == -1)
 	{
 		Close(si_input);
