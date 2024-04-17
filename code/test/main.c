@@ -15,9 +15,7 @@ int main()
 	//-----------------------------------------------------------
 	
 	// Khoi tao 4 Semaphore de quan ly 3 tien trinh
-	PrintString("ok main 1\n");
 	f_Success = CreateSemaphore("main",0);
-	PrintString("ok main 2\n");
 	if(f_Success == -1)
 		return 1;
 	f_Success = CreateSemaphore("passenger", 0);
@@ -173,3 +171,4 @@ int main()
 	return 0;	
 	
 }
+

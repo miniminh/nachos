@@ -302,14 +302,10 @@ void handle_SC_Exit() {
 }
 
 void handle_SC_CreateSemaphore() {
-	PrintString("ok\n");
     int virtAddr = kernel->machine->ReadRegister(4);
-	PrintString("ok1\n");
     int semval = kernel->machine->ReadRegister(5);
-	PrintString("ok2\n");
 
     char* name = stringUser2System(virtAddr);
-	PrintString("ok3\n");
     if (name == NULL) {
         DEBUG(dbgSys, "\n Not enough memory in System");
         ASSERT(false);
@@ -363,7 +359,6 @@ void handle_SC_GetPid() {
 }
 
 void ExceptionHandler(ExceptionType which) {
-    PrintString("ma buon ngu qua");
     int type = kernel->machine->ReadRegister(2);
 
     DEBUG(dbgSys, "Received Exception " << which << " type: " << type << "\n");
@@ -415,7 +410,6 @@ void ExceptionHandler(ExceptionType which) {
                 case SC_Exit:
                     return handle_SC_Exit();
                 case SC_CreateSemaphore:
-	                PrintString("ok catch\n");
                     return handle_SC_CreateSemaphore();
                 case SC_Wait:
                     return handle_SC_Wait();
