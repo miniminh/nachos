@@ -69,6 +69,8 @@ int main()
 	f_Success = Exec("./test/passenger.c");
 	if(f_Success == -1)
 	{
+		PrintString("Exec khong thanh cong passenger\n");
+
 		Close(si_input);
 		Close(si_output);
 		return 1;
@@ -80,6 +82,8 @@ int main()
 	f_Success = Exec("./test/scanner.c");
 	if(f_Success == -1)
 	{
+		PrintString("Exec khong thanh cong scanner\n");
+
 		Close(si_input);
 		Close(si_output);
 		return 1;
