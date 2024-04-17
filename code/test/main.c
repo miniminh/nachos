@@ -147,7 +147,10 @@ int main()
 		}
 
 		// Doc cac voi vao output.txt		
-		si_passenger = Open("passenger.txt", 0);
+		si_passenger = Open("output.txt", 0);
+
+		PrintString("Ghi vao file output\n");
+
 		while(1)
 		{
 			while (1){
