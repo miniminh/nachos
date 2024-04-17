@@ -61,6 +61,9 @@ int main()
 			break;
 	}
 
+	PrintString("So luong thoi diem can xu ly: ");
+	PrintInt(SLTD);
+	PrintString("\n");
 
 	// Goi thuc thi tien trinh passenger.c
 	f_Success = Exec("passenger");
@@ -71,6 +74,8 @@ int main()
 		return 1;
 	}
 
+	PrintString("Exec thanh cong passenger\n");
+
 	// Goi thuc thi tien trinh scanner.c
 	f_Success = Exec("scanner");
 	if(f_Success == -1)
@@ -79,9 +84,16 @@ int main()
 		Close(si_output);
 		return 1;
 	}
+
+	PrintString("Exec thanh cong passenger\n");
+
 	// Thuc hien xu ly khi nao het thoi diem xet thi thoi
 	while(SLTD--)
 	{
+		PrintString("So luong thoi diem con lai: ");
+		PrintInt(SLTD);
+		PrintString("\n");
+
 		// Tao file passenger.txt
 		f_Success = CreateFile("passenger.txt");
 		if(f_Success == -1)
@@ -116,7 +128,9 @@ int main()
 		}
 		// Dong file passenger.txt lai
 		Close(si_passenger);
-			
+
+		PrintString("Xu ly xong file passenger\n");
+		
 		// Goi tien trinh passenger hoat dong
 		Signal("passenger");
 
@@ -131,10 +145,6 @@ int main()
 			Close(si_output);
 			return 1;
 		}
-
-		PrintString("\n Lan thu: ");
-		PrintInt(SLTD);
-		PrintString("\n");	
 
 		// Doc cac voi vao output.txt		
 		si_passenger = Open("passenger.txt", 0);
