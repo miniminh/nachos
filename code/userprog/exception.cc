@@ -149,6 +149,12 @@ void handle_SC_PrintChar() {
     return move_program_counter();
 }
 
+void handle_SC_PrintInt() {
+    int character = kernel->machine->ReadRegister(4);
+    SysPrintInt(character);
+    return move_program_counter();
+}
+
 #define MAX_READ_STRING_LENGTH 255
 void handle_SC_ReadString() {
     int memPtr = kernel->machine->ReadRegister(4);  // read address of C-string
@@ -387,6 +393,8 @@ void ExceptionHandler(ExceptionType which) {
                     return handle_SC_ReadChar();
                 case SC_PrintChar:
                     return handle_SC_PrintChar();
+                case SC_PrintInt:
+                    return handle_SC_PrintInt();
                 case SC_ReadString:
                     return handle_SC_ReadString();
                 case SC_PrintString:
