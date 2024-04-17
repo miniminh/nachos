@@ -89,7 +89,7 @@ int main()
 		return 1;
 	}
 
-	PrintString("Exec thanh cong passenger\n");
+	PrintString("Exec thanh cong scanner\n");
 
 	// Thuc hien xu ly khi nao het thoi diem xet thi thoi
 	while(SLTD--)
@@ -165,7 +165,7 @@ int main()
 					Write(" ", 1, si_output);
 					break;
 				}
-				if (c_readFile < '0' && c_readFile > '9'){
+				if (c_readFile < '0' || c_readFile > '9'){
 					PrintChar('\n');
 					Write(" ", 1, si_output);
 					break;
