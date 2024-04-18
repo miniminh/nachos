@@ -35,6 +35,7 @@ const int PageSize = 256;  // set the page size equal to
 // Doing so will change the number of pages of physical memory
 // available on the simulated machine.
 //
+
 const int NumPhysPages = 128;
 
 const int MemorySize = (NumPhysPages * PageSize);
@@ -202,4 +203,5 @@ unsigned int WordToMachine(unsigned int word);
 unsigned short ShortToMachine(unsigned short shortword);
 
 #endif  // MACHINE_H
+
 

@@ -137,6 +137,18 @@ void handle_SC_Halt() {
     ASSERTNOTREACHED();
 }
 
+void handle_SC_ReadInt() {
+    int result = SysReadInt();
+    kernel->machine->WriteRegister(2, result);
+    return move_program_counter();
+}
+
+void handle_SC_PrintInt() {
+    int character = kernel->machine->ReadRegister(4);
+    SysPrintInt(character);
+    return move_program_counter();
+}
+
 void handle_SC_ReadChar() {
     char result = SysReadChar();
     kernel->machine->WriteRegister(2, (int)result);
@@ -146,12 +158,6 @@ void handle_SC_ReadChar() {
 void handle_SC_PrintChar() {
     char character = (char)kernel->machine->ReadRegister(4);
     SysPrintChar(character);
-    return move_program_counter();
-}
-
-void handle_SC_PrintInt() {
-    int character = kernel->machine->ReadRegister(4);
-    SysPrintInt(character);
     return move_program_counter();
 }
 
@@ -176,6 +182,18 @@ void handle_SC_PrintString() {
     SysPrintString(buffer, strlen(buffer));
     delete[] buffer;
     return move_program_counter();
+}
+
+void handle_SC_ReadFloat() {
+    float* f = SysReadFloat();
+   	kernel->machine->WriteRegister(2, (int)f);
+    return move_program_counter();
+}
+
+void handle_SC_PrintFloat() {
+    float* f = (float*)kernel->machine->ReadRegister(4);
+   	SysPrintFloat(f);
+   	return move_program_counter();
 }
 
 void handle_SC_CreateFile() {
@@ -389,16 +407,22 @@ void ExceptionHandler(ExceptionType which) {
             switch (type) {
                 case SC_Halt:
                     return handle_SC_Halt();
+                case SC_ReadInt:
+                    return handle_SC_ReadInt();
+                case SC_PrintInt:
+                    return handle_SC_PrintInt();
                 case SC_ReadChar:
                     return handle_SC_ReadChar();
                 case SC_PrintChar:
                     return handle_SC_PrintChar();
-                case SC_PrintInt:
-                    return handle_SC_PrintInt();
                 case SC_ReadString:
                     return handle_SC_ReadString();
                 case SC_PrintString:
                     return handle_SC_PrintString();
+                case SC_ReadFloat:
+   					return handle_SC_ReadFloat();
+   				case SC_PrintFloat:
+   					return handle_SC_PrintFloat();
                 case SC_CreateFile:
                     return handle_SC_CreateFile();
                 case SC_Open:

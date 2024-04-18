@@ -125,7 +125,7 @@ halt.o: halt.c
 halt: halt.o start.o
 	$(LD) $(LDFLAGS) start.o halt.o -o halt.coff
 	$(COFF2NOFF) halt.coff halt
-
+	
 help.o: help.c
 	$(CC) $(CFLAGS) -c help.c
 help: help.o start.o
@@ -168,4 +168,5 @@ unknownhost:
 
 TYPHOON:
 	proj2
+
 
