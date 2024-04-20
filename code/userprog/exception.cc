@@ -343,7 +343,7 @@ void handle_SC_CreateSemaphore() {
     return move_program_counter();
 }
 
-void handle_SC_Wait() {
+void handle_SC_Down() {
     int virtAddr = kernel->machine->ReadRegister(4);
 
     char* name = stringUser2System(virtAddr);
@@ -360,7 +360,7 @@ void handle_SC_Wait() {
     return move_program_counter();
 }
 
-void handle_SC_Signal() {
+void handle_SC_Up() {
     int virtAddr = kernel->machine->ReadRegister(4);
 
     char* name = stringUser2System(virtAddr);
@@ -443,10 +443,10 @@ void ExceptionHandler(ExceptionType which) {
                     return handle_SC_Exit();
                 case SC_CreateSemaphore:
                     return handle_SC_CreateSemaphore();
-                case SC_Wait:
-                    return handle_SC_Wait();
-                case SC_Signal:
-                    return handle_SC_Signal();
+                case SC_Down:
+                    return handle_SC_Down();
+                case SC_Up:
+                    return handle_SC_Up();
                 case SC_GetPid:
                     return handle_SC_GetPid();
                 /**

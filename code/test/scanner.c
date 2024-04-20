@@ -18,19 +18,19 @@ void main()
 	// WHILE(11111111111111111111111111111111111111)
 	while (1)
 	{
-		Wait("m_vn");
+		Down("m_vn");
 
 		// Mo file result.txt de ghi voi nao su dung
 		si_result = Open("result.txt", 0);
 		if (si_result == -1)
 		{ //?
-			Signal("passenger");
+			Up("passenger");
 			return;
 		}
 		// WHILE(2222222222222222222222222222222222222222)
 		while (1)
 		{
-			Wait("scanner");
+			Down("scanner");
 			c_readFile = 0;
 			// Mo file voi nuoc .txt de doc dung tich
 			si_voinuoc = Open("scanner.txt", 1);
@@ -38,7 +38,7 @@ void main()
 			{
 				//?
 				Close(si_result);
-				Signal("passenger");
+				Up("passenger");
 
 				return;
 			}
@@ -93,11 +93,11 @@ void main()
 				v1 = v2 = 0;
 				v3 = 0;
 				Close(si_result);
-				Signal("passenger");
+				Up("passenger");
 				break;
 			}
 
-			Signal("passenger");
+			Up("passenger");
 		}
 		// WHILE(2222222222222222222222222222222222222222)
 	}

@@ -194,21 +194,21 @@ CreateSemaphore:
 	j	$31
 	.end CreateSemaphore
 
-	.globl Wait
-	.ent	Wait
-Wait:
-	addiu $2,$0,SC_Wait
+	.globl Down
+	.ent	Down
+Down:
+	addiu $2,$0,SC_Down
 	syscall
 	j	$31
-	.end Wait
+	.end Down
 
-	.globl Signal
-	.ent	Signal
-Signal:
-	addiu $2,$0,SC_Signal
+	.globl Up
+	.ent	Up
+Up:
+	addiu $2,$0,SC_Up
 	syscall
 	j	$31
-	.end Signal
+	.end Up
 
 /* dummy function to keep gcc happy */
         .globl  __main

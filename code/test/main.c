@@ -136,12 +136,12 @@ int main()
 		PrintString("Xu ly xong file passenger\n");
 		
 		// Goi tien trinh passenger hoat dong
-		Signal("passenger");
+		Up("passenger");
 
 		PrintString("Passenger xu ly thoai\n");
 
 		// Tien trinh chinh phai cho 
-		Wait("main");	
+		Down("main");	
 		
 		// Thuc hien doc file tu result va ghi vao ket qua o output.txt
 		si_result = Open("result.txt", 1);
@@ -177,7 +177,7 @@ int main()
 			{
 				Write("\r\n", 2, si_output);
 				Close(si_result);
-				Signal("m_vn");
+				Up("m_vn");
 				break;
 			}
 			PrintString("May quet: ");

@@ -12,20 +12,20 @@ void main()
 	int lengthFile;		// Luu do dai file
 	int i_File;		// Luu con tro file
 	//-----------------------------------------------------------
-	Signal("m_vn");	
+	Up("m_vn");	
 
 	while(1)
 	{
 		lengthFile = 0;
 
-		Wait("passenger");
+		Down("passenger");
 		
 
 		// Tao file result.txt de ghi voi nao su dung
 		f_Success = CreateFile("result.txt");
 		if(f_Success == -1)
 		{
-			Signal("main"); // tro ve tien trinh chinh
+			Up("main"); // tro ve tien trinh chinh
 			return;
 		}
 
@@ -33,7 +33,7 @@ void main()
 		si_passenger = Open("passenger.txt", 1);
 		if(si_passenger == -1)
 		{
-			Signal("main"); // tro ve tien trinh chinh
+			Up("main"); // tro ve tien trinh chinh
 			return;
 		}
 		
@@ -46,7 +46,7 @@ void main()
 		if(f_Success == -1)
 		{
 			Close(si_passenger);
-			Signal("main"); // tro ve tien trinh chinh
+			Up("main"); // tro ve tien trinh chinh
 			return;
 		}
 		
@@ -56,7 +56,7 @@ void main()
 		if(si_voinuoc == -1)
 		{
 			Close(si_passenger);
-			Signal("main"); // tro ve tien trinh chinh
+			Up("main"); // tro ve tien trinh chinh
 			return;
 		}
 		
@@ -83,16 +83,16 @@ void main()
 			if(flag_VN == 1)
 			{
 				Close(si_voinuoc);
-				Signal("scanner");
+				Up("scanner");
 				// Dung chuong trinh passenger lai de scanner thuc thi
-				Wait("passenger");
+				Down("passenger");
 				
 				// Tao file scanner.txt
 				f_Success = CreateFile("scanner.txt");
 				if(f_Success == -1)
 				{
 					Close(si_passenger);
-					Signal("main"); // tro ve tien trinh chinh
+					Up("main"); // tro ve tien trinh chinh
 					return;
 				}
 		
@@ -102,7 +102,7 @@ void main()
 				if(si_voinuoc == -1)
 				{
 					Close(si_passenger);
-					Signal("main"); // tro ve tien trinh chinh
+					Up("main"); // tro ve tien trinh chinh
 					return;
 				}
 				
@@ -111,7 +111,7 @@ void main()
 							
 		}				
 		// Ket thuc tien trinh passenger va scanner quay lai ham SvVn
-		Signal("main");			
+		Up("main");			
 	}
 	// Quay lai ham Svvn	
 }

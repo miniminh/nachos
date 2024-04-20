@@ -44,7 +44,7 @@ int STable::Create(char* name,
     return 0;
 }
 
-int STable::Wait(char* name) {
+int STable::Down(char* name) {
     for (int i = 0; i < MAX_SEMAPHORE; i++) {
         // Kiem tra o thu i da duoc nap semaphore chua
         if (bm->Test(i)) {
@@ -61,7 +61,7 @@ int STable::Wait(char* name) {
     return -1;
 }
 
-int STable::Signal(char* name) {
+int STable::Up(char* name) {
     for (int i = 0; i < MAX_SEMAPHORE; i++) {
         // Kiem tra o thu i da duoc nap semaphore chua
         if (bm->Test(i)) {

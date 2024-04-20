@@ -44,8 +44,8 @@
 #define SC_ReadFloat 49
 #define SC_PrintFloat 50
 #define SC_CreateSemaphore 51
-#define SC_Wait 52
-#define SC_Signal 53
+#define SC_Down 52
+#define SC_Up 53
 #define SC_GetPid 54
 #ifndef IN_ASM
 
