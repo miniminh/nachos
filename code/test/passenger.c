@@ -4,10 +4,10 @@
 void main()
 {
 	// Khai bao
-	int f_Success; // Bien co dung de kiem tra thanh cong
-	SpaceId si_passenger, si_voinuoc;	// Bien id cho file
-	char c_readFile;	// Bien ki tu luu ki tu doc tu file
-	int flag_VN;		// Bien co de nhay den tien trinh scanner
+	int f_Success; // Bien dung de kiem tra thanh cong
+	SpaceId si_passenger, si_scanner;	// Bien id cho file
+	char buffer;	// Bien ki tu luu ki tu doc tu file
+	int flag_Scanner;		// Bien co de nhay den tien trinh scanner
 	int flag_MAIN;		// Bien co de nhay den tien trinh main
 	int lengthFile;		// Luu do dai file
 	int i_File;		// Luu con tro file
@@ -21,7 +21,7 @@ void main()
 		Down("passenger");
 		
 
-		// Tao file result.txt de ghi voi nao su dung
+		// Tao file result.txt de ghi scanner nao su dung
 		f_Success = CreateFile("result.txt");
 		if(f_Success == -1)
 		{
@@ -51,38 +51,38 @@ void main()
 		}
 		
 
-		// Mo file scanner.txt de ghi tung dung tich nuoc cua passenger
-		si_voinuoc = Open("scanner.txt", 0);
-		if(si_voinuoc == -1)
+		// Mo file scanner.txt de ghi tung so luong hanh ly cua passenger
+		si_scanner = Open("scanner.txt", 0);
+		if(si_scanner == -1)
 		{
 			Close(si_passenger);
 			Up("main"); // tro ve tien trinh chinh
 			return;
 		}
 		
-		// Ghi dung tich vao file scanner.txt tu file passenger.txt
+		// Ghi so luong hanh ly vao file scanner.txt tu file passenger.txt
 		while(i_File < lengthFile)
 		{
-			flag_VN = 0;
-			Read(&c_readFile, 1, si_passenger);
-			if(c_readFile != ' ')
+			flag_Scanner = 0;
+			Read(&buffer, 1, si_passenger);
+			if(buffer != ' ')
 			{
-				Write(&c_readFile, 1, si_voinuoc);
+				Write(&buffer, 1, si_scanner);
 			}
 			else
 			{
-				flag_VN = 1;
+				flag_Scanner = 1;
 			}
 			if(i_File == lengthFile - 1)
 			{
-				Write("*", 1, si_voinuoc);
-				flag_VN = 1;
+				Write("*", 1, si_scanner);
+				flag_Scanner = 1;
 			}
 			
 				
-			if(flag_VN == 1)
+			if(flag_Scanner == 1)
 			{
-				Close(si_voinuoc);
+				Close(si_scanner);
 				Up("scanner");
 				// Dung chuong trinh passenger lai de scanner thuc thi
 				Down("passenger");
@@ -97,9 +97,9 @@ void main()
 				}
 		
 
-				// Mo file scanner.txt de ghi tung dung tich nuoc cua passenger
-				si_voinuoc = Open("scanner.txt", 0);
-				if(si_voinuoc == -1)
+				// Mo file scanner.txt de ghi tung so luong hanh ly cua passenger
+				si_scanner = Open("scanner.txt", 0);
+				if(si_scanner == -1)
 				{
 					Close(si_passenger);
 					Up("main"); // tro ve tien trinh chinh
@@ -110,8 +110,8 @@ void main()
 			i_File++;			
 							
 		}				
-		// Ket thuc tien trinh passenger va scanner quay lai ham SvVn
+		// Ket thuc tien trinh passenger va scanner quay lai main
 		Up("main");			
 	}
-	// Quay lai ham Svvn	
+	// Quay lai main	
 }

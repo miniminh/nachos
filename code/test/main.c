@@ -7,10 +7,10 @@
 int main()
 {
 	// KHAI BAO
-	int f_Success; // Bien co dung de kiem tra thanh cong
+	int f_Success; // Bien dung de kiem tra thanh cong
 	SpaceId si_input, si_output, si_passenger, si_result;	// Bien id cho file
-	int SLTD;	// Luu so luong thoi diem xet
-	char c_readFile;	// Bien ki tu luu ki tu doc tu file
+	int n;	// Luu so luong thoi diem xet
+	char buffer;	// Bien ki tu luu ki tu doc tu file
 
 	//-----------------------------------------------------------
 	
@@ -47,22 +47,21 @@ int main()
 	}
 
 	// Doc so luong thoi diem xet o file input.txt
-	//**** Thuc hien xong doan lenh duoi thi con tro file o input.txt o dong 1
-	SLTD = 0;
+	n = 0;
 	while(1)
 	{
-		Read(&c_readFile, 1, si_input);
-		if(c_readFile != '\n')
+		Read(&buffer, 1, si_input);
+		if(buffer != '\n')
 		{
-			if(c_readFile >= '0' && c_readFile <= '9')
-				SLTD = SLTD * 10 + (c_readFile - 48);
+			if(buffer >= '0' && buffer <= '9')
+				n = n * 10 + (buffer - 48);
 		}
 		else
 			break;
 	}
 
 	PrintString("So luong thoi diem can xu ly: ");
-	PrintInt(SLTD);
+	PrintInt(n);
 	PrintString("\n");
 
 	// Goi thuc thi tien trinh passenger.c
@@ -92,10 +91,10 @@ int main()
 	PrintString("Exec thanh cong scanner\n");
 
 	// Thuc hien xu ly khi nao het thoi diem xet thi thoi
-	while(SLTD--)
+	while(n--)
 	{
 		PrintString("So luong thoi diem con lai: ");
-		PrintInt(SLTD);
+		PrintInt(n);
 		PrintString("\n");
 
 		// Tao file passenger.txt
@@ -117,20 +116,19 @@ int main()
 		}
 		while(1)
 		{
-			if(Read(&c_readFile, 1, si_input) < 1)
+			if(Read(&buffer, 1, si_input) < 1)
 			{
-				// Doc toi cuoi file
 				break;
 			}
-			if(c_readFile != '\n')
+			if(buffer != '\n')
 			{
-				Write(&c_readFile, 1, si_passenger);				
+				Write(&buffer, 1, si_passenger);				
 			}
 			else
 				break;
 						
 		}
-		// Dong file passenger.txt lai
+
 		Close(si_passenger);
 
 		PrintString("Xu ly xong file passenger\n");
@@ -140,7 +138,6 @@ int main()
 
 		PrintString("Passenger xu ly thoai\n");
 
-		// Tien trinh chinh phai cho 
 		Down("main");	
 		
 		// Thuc hien doc file tu result va ghi vao ket qua o output.txt
@@ -152,7 +149,7 @@ int main()
 			return 1;
 		}
 
-		// Doc cac voi vao output.txt		
+		// Doc cac hanh ly vao output.txt		
 		si_passenger = Open("passenger.txt", 0);
 
 		PrintString("Ghi vao file output\n");
@@ -161,19 +158,19 @@ int main()
 		{
 			PrintString("Hanh khach: ");
 			while (1){
-				if (Read(&c_readFile,1,si_passenger) < 1){
+				if (Read(&buffer,1,si_passenger) < 1){
 					Write(" ", 1, si_output);
 					break;
 				}
-				if (c_readFile < '0' || c_readFile > '9'){
+				if (buffer < '0' || buffer > '9'){
 					PrintChar('\n');
 					Write(" ", 1, si_output);
 					break;
 				}
-				PrintChar(c_readFile);
-				Write(&c_readFile, 1, si_output);
+				PrintChar(buffer);
+				Write(&buffer, 1, si_output);
 			}
-			if(Read(&c_readFile, 1, si_result)  < 1)
+			if(Read(&buffer, 1, si_result)  < 1)
 			{
 				Write("\r\n", 2, si_output);
 				Close(si_result);
@@ -181,8 +178,8 @@ int main()
 				break;
 			}
 			PrintString("May quet: ");
-			Write(&c_readFile, 1, si_output);
-			PrintChar(c_readFile);
+			Write(&buffer, 1, si_output);
+			PrintChar(buffer);
 			PrintChar('\n');
 			Write("     ", 5, si_output);	
 		}
