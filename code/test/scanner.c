@@ -8,7 +8,7 @@ void main()
 	SpaceId si_scanner, si_result; // Bien id cho file
 	char buffer;			   // Bien ki tu luu ki tu doc tu file
 	int s1, s2, s3;				   // scanner 1, scanner 2
-	int v;						   // Dung tich nuoc cua sinh vien
+	int n;						   // So luong hanh ly cua hanh khach
 	int flag_done_result;		   // Bien co luu dau hieu doc xong file result
 
 	//-----------------------------------------------------------
@@ -40,7 +40,7 @@ void main()
 				return;
 			}
 
-			v = 0;
+			n = 0;
 			flag_done_result = 0;
 
 			while (1)
@@ -52,7 +52,7 @@ void main()
 				}
 				if (buffer != '*')
 				{
-					v = v * 10 + (buffer - 48);
+					n = n * 10 + (buffer - 48);
 				}
 				else
 				{
@@ -62,24 +62,24 @@ void main()
 				}
 			}
 
-			if (v != 0)
+			if (n != 0)
 			{
 				// Dung scanner 1
 				if (s1 <= s2)
 				{
-					s1 += v;
+					s1 += n;
 					Write("1", 1, si_result);
 				}
 				else // Dung scanner 2
 				{
 					if (s2 <= s3)
 					{
-						s2 += v;
+						s2 += n;
 						Write("2", 1, si_result);
 					}
 					else // Dung scanner 2
 					{
-						s3 += v;
+						s3 += n;
 						Write("3", 1, si_result);
 					}
 				}
